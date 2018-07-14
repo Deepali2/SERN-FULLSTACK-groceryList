@@ -7,7 +7,8 @@ mongoose.connect('mongodb://localhost/fetcher');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-
+  console.log('connection made');
+});
   //reference to our schema
   let repoSchema = mongoose.Schema({
     // TODO: your schema here!  
@@ -21,19 +22,21 @@ db.once('open', function() {
   //compiling our schema into a model. 
   //model is a class with which we construct documents
   let Repo = mongoose.model('Repo', repoSchema);
-  //a repo document, an instance of the constructor Repo
-    let saverepo = (newRepo, cb) => {
-      let repo = new Repo({
-        repoName: newRepo.name,
-        ownerLogin: newRepo.owner.login,
-        htmlUrl: newRepo.owner.html_url,
-        Description: newRepo.description,
-        stargazers_count: newRepo.stargazers_url
-      }); 
+ 
 
-      repo.save(cb);
+  let saverepo = (newRepo, cb) => {
+     //a repo document, an instance of the constructor Repo
+    let repo = new Repo({
+      repoName: newRepo.name,
+      ownerLogin: newRepo.owner.login,
+      htmlUrl: newRepo.owner.html_url,
+      Description: newRepo.description,
+      stargazers_count: newRepo.stargazers_url
+    }); 
 
-    }
+    repo.save(cb);
+
+  };
   
-});
+
 module.exports.save = saverepo;

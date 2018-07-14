@@ -16,14 +16,16 @@ let getReposByUsername = ( username => {
   // The options object has been provided to help you out, 
   // but you'll have to fill in the URL
   let options = {
-    url: `https://api.github.com/${username}/repos`,
+    url: `https://api.github.com/${username}/repo`,
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${config.TOKEN}`
     }
   };
 
+  request(options, callback);
+
 });
-request(options, callback);
+
 
 module.exports.getReposByUsername = getReposByUsername;

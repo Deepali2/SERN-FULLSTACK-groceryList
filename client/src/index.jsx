@@ -13,8 +13,18 @@ class App extends React.Component {
     // this.search = this.search.bind(this);
   }
 
-  search (term) {
-    console.log(`${term} was searched`);
+  componentDidMount() {
+    const self = this;
+    $.get(  "/repo", function( data ) {
+      //console.log(this);
+      self.setState({
+        repos: data
+      });
+      console.log(self.state.repos);
+     });
+  }
+  search (username) {
+    console.log(`${username} was searched`);
     $.ajax({
       type: "POST",
       url: "./repo",
@@ -23,7 +33,10 @@ class App extends React.Component {
       success: function(data) {console.log('Your data posted successfully!')},
       failure: function(err) {console.log("There is an error:", err)},      
     });
+    
   }
+
+  
 
   render () {
     return (<div>
