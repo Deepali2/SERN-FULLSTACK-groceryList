@@ -15,15 +15,7 @@ class Search extends React.Component {
   }
 
   search() {
-    this.props.onSearch(this.state.term);
-    $.ajax({
-      type: "POST",
-      url: "./repo",
-      data: this.state.term, 
-      contentType: "application/json",     
-      success: function(data) {console.log('Your data posted successfully!')},
-      failure: function(err) {console.log("There is an error:", err)},      
-    });
+    this.props.onSearch(this.state.term);    
   }
 
   render() {
