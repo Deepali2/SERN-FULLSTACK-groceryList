@@ -22,17 +22,18 @@ db.once('open', function() {
   //model is a class with which we construct documents
   let Repo = mongoose.model('Repo', repoSchema);
   //a repo document, an instance of the constructor Repo
-  let repo = new Repo({
-    repoName: newRepo.name,
-    ownerLogin: newRepo.owner.login,
-    htmlUrl: newRepo.owner.html_url,
-    Description: newRepo.description,
-    stargazers_count: newRepo.stargazers_url
-  }); 
+    let saverepo = (newRepo, cb) => {
+      let repo = new Repo({
+        repoName: newRepo.name,
+        ownerLogin: newRepo.owner.login,
+        htmlUrl: newRepo.owner.html_url,
+        Description: newRepo.description,
+        stargazers_count: newRepo.stargazers_url
+      }); 
 
-  repo.save = (err, repo) => {
-    if (err) return console.error(err);
-    console.log(repo);    
-  }
+      repo.save(cb);
+
+    }
+  
 });
-module.exports.save = save;
+module.exports.save = saverepo;
