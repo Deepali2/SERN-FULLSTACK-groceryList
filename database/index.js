@@ -24,19 +24,22 @@ db.once('open', function() {
   let Repo = mongoose.model('Repo', repoSchema);
  
 
-  let saverepo = (newRepo, cb) => {
-     //a repo document, an instance of the constructor Repo
-    let repo = new Repo({
-      repoName: newRepo.name,
-      ownerLogin: newRepo.owner.login,
-      htmlUrl: newRepo.owner.html_url,
-      Description: newRepo.description,
-      stargazers_count: newRepo.stargazers_url
-    }); 
+  // let saverepo = (newRepo, cb) => {
+  //    //a repo document, an instance of the constructor Repo
+  //   let repo = new Repo({
+  //     repoName: newRepo.name,
+  //     // ownerLogin: newRepo.owner.login,
+  //     // htmlUrl: newRepo.owner.html_url,
+  //     // Description: newRepo.description,
+  //     // stargazers_count: newRepo.stargazers_url
+  //   }); 
 
-    repo.save(cb);
-
-  };
+    let saverepo = (err, newRepo) => {
+      //a repo document, an instance of the constructor Repo
+        if (err) return console.error(err);
+        console.log('INSERT SUCCESSFULL');
+        Repo.insertMany(newRepo);
+    };
   
 
 module.exports.save = saverepo;

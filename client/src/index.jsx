@@ -18,7 +18,7 @@ class App extends React.Component {
     $.get(  "/repo", function( data ) {
       //console.log(this);
       self.setState({
-        repos: data
+        repos: JSON.parse(data)
       });
       console.log(self.state.repos);
      });
@@ -28,7 +28,7 @@ class App extends React.Component {
     $.ajax({
       type: "POST",
       url: "./repo",
-      data: this.state.term, 
+      data: JSON.stringify({username:username}), 
       contentType: "application/json",     
       success: function(data) {console.log('Your data posted successfully!')},
       failure: function(err) {console.log("There is an error:", err)},      
@@ -40,9 +40,9 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
+      <h1>Github Fetcher</h1>      
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
